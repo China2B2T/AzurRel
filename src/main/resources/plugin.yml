@@ -1,0 +1,9 @@
+main: org.china2b2t.plugmgr.Main
+name: AzurMgr
+version: 1.0
+author: Rabbit0w0
+api-version: 1.12
+commands:
+  pluginmgr:
+    description: Plugin Manager
+    aliases: [pl, plm]
