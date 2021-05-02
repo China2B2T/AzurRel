@@ -7,3 +7,6 @@ commands:
   pluginmgr:
     description: Plugin Manager
     aliases: [pl, plm]
+  genkey:
+    description: Generate a master key
+    aliases: [gkey, keygen]
