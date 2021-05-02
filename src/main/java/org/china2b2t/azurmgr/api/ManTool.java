@@ -27,4 +27,16 @@ public class ManTool {
         }
         return MgrList.get(plug);
     }
+
+    /**
+     * Pass the change
+     * @param plugin
+     * @param key
+     * @param value
+     * @return 0: ok | 1: not_same_type | 2: changed_nothing | 3: unknown_err
+     */
+    public static int passConfigModify(String plugin, String key, Object value) {
+        // TODO add
+        return 0;
+    }
 }

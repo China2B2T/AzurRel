@@ -50,7 +50,7 @@ public class Controller {
      * @param inbound
      */
     public static void addUser(String userName, WebSocket conn) {
-        conn.send("inf:ok");
+        conn.send("inf$ok");
         wsUserMap.put(conn, userName);
     }
 
