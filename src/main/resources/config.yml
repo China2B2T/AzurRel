@@ -1,0 +1,10 @@
+# 是否下线就删除管理权限
+temporary-permission: true
+
+# 后台登录信息
+admin-info:
+  Player:
+    # 密钥
+    key: XXXXXXXXXXXXXXXXXXXXXXXX
+    # 用户是否被启用
+    enabled: false

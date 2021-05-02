@@ -1,8 +1,8 @@
-package org.china2b2t.azurmgr;
+package org.china2b2t.azurmgr.command;
 
 import java.io.File;
 import java.util.Iterator;
-
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
@@ -20,8 +20,9 @@ import org.bukkit.plugin.SimplePluginManager;
 import com.google.common.collect.Lists;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.china2b2t.azurmgr.ReflectionHelper;
 
-public class Handler implements CommandExecutor {
+public class CommandPluginmgr implements CommandExecutor {
     private String prefix = ChatColor.GOLD.toString() + ChatColor.BOLD + "China2B2T" + ChatColor.RESET.toString() + ChatColor.YELLOW + " >> " + ChatColor.WHITE;
 
     @Override
