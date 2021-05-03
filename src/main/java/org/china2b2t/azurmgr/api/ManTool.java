@@ -1,6 +1,8 @@
 package org.china2b2t.azurmgr.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import org.bukkit.plugin.Plugin;
 
@@ -38,5 +40,18 @@ public class ManTool {
     public static int passConfigModify(String plugin, String key, Object value) {
         // TODO add
         return 0;
+    }
+
+    /**
+     * Get Plugins List
+     * @return Plugins List
+     */
+    public ArrayList<String> getPlugins(){
+        ArrayList<String> Plugins = new ArrayList<>();
+        Set<Plugin> keyPlugins = MgrList.keySet();
+        for (Plugin plugin : keyPlugins){
+            Plugins.add(plugin.getName());
+        }
+        return Plugins;
     }
 }

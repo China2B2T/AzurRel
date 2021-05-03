@@ -28,7 +28,7 @@ public class CommandPluginmgr implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         if (!sender.hasPermission("china2b2t.plugmgr.admin")) {
-            sender.sendMessage(prefix + "Hey, you...don't do that >:(");
+            sender.sendMessage(prefix + "Hey, you...don't do that > :(");
             return true;
         }
         if (args.length < 2) {
