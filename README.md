@@ -1,0 +1,2 @@
+# AzurMgr
+Plugin manager
