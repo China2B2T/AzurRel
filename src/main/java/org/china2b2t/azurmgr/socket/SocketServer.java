@@ -22,13 +22,13 @@ public class SocketServer extends WebSocketServer {
     }
 
     @Override
-    public void onStart() {
-        instance = new Main().getInstance();
-    }
+    public void onStart() { instance = new Main().getInstance(); }
 
     @Override
     public void onOpen(WebSocket conn, ClientHandshake handshake) {
         instance.getLogger().info("New management connection: " + conn.getRemoteSocketAddress().getAddress().toString());
+        String token = Controller.getRandomToken();
+        conn.send("token$"+token);
     }
 
     @Override

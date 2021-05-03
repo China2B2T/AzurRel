@@ -1,11 +1,6 @@
 package org.china2b2t.azurmgr.socket;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.java_websocket.WebSocket;
 
@@ -109,5 +104,19 @@ public class Controller {
                 }
             }
         }
+    }
+
+    /**
+     * 生成Token
+     * @return 24位Token
+     */
+    public static String getRandomToken() {
+        String codes = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random random = new Random();
+        StringBuilder randomStr = new StringBuilder();
+        for (int i = 0; i < 24; i++) {
+            randomStr.append(codes.charAt(random.nextInt(62)));
+        }
+        return randomStr.toString();
     }
 }
