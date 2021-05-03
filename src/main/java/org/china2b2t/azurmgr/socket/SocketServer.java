@@ -45,6 +45,8 @@ public class SocketServer extends WebSocketServer {
         if(message != null && message.startsWith("operation_req")) {
             // U2FsdGVkX1++CgIiNDkBRFV8JerKuD/WzxH4WhY+GMWsty9sjB1xQRnJmnz4+avl/1YqK8KQMJJg2WR71hOm0yaSc3sxzEdoiuIzA6h0zD2Dkn6I2FawZxE5pymjOKZ7WJi1k7kFcXSd2Q==
             String operation = message.substring(13);
+            String token = operation.split(":")[3];
+            // TODO verify token
             int ret = ManTool.passConfigModify(operation.split(":")[0], operation.split(":")[1], operation.split(":")[2]);
         }
     }

@@ -12,8 +12,10 @@ public class Validate {
     }
 
     public static boolean validate(String playerName, String key) {
-        if(Main.getPlugin(Main.class).getConfig().isString("admin-info." + playerName + ".key") && Main.getPlugin(Main.class).getConfig().isBoolean("admin-info." + playerName + ".enabled")) {
-            if(key == Main.getPlugin(Main.class).getConfig().getString("admin-info." + playerName + ".key")) {
+        // Cold down
+        String path = "admin-info." + playerName;
+        if(new Main().getConfig().isString(path + ".key") && new Main().getConfig().isBoolean(path + ".enabled")) {
+            if(key == new Main().getConfig().getString(path + ".key")) {
                 return true;
             }
             return false;

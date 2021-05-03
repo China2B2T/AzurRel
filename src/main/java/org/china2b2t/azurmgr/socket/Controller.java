@@ -1,7 +1,9 @@
 package org.china2b2t.azurmgr.socket;
 
+import java.security.SecureRandom;
 import java.util.*;
 
+import org.china2b2t.azurmgr.Main;
 import org.java_websocket.WebSocket;
 
 /**
@@ -112,7 +114,13 @@ public class Controller {
      */
     public static String getRandomToken() {
         String codes = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        Random random = new Random();
+        Random random = null;
+        try {
+            random = SecureRandom.getInstanceStrong();
+        } catch (Exception e) {
+            new Main().getLogger().info("Cannot get Random instance");
+            e.printStackTrace();
+        }
         StringBuilder randomStr = new StringBuilder();
         for (int i = 0; i < 24; i++) {
             randomStr.append(codes.charAt(random.nextInt(62)));

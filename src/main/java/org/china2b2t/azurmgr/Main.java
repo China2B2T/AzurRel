@@ -5,6 +5,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.china2b2t.azurmgr.command.CommandGenkey;
 import org.china2b2t.azurmgr.command.CommandPluginmgr;
 
+// LyoqCiAqIEkgV0lMTCBBTFdBWVMgVE8gQkxBTUUgTVlTRUxGCiAqIFdIWSBBTSBJIFNPIFNFTEZJU0gKICogV0hZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZCiAqLw==
+
 public class Main extends JavaPlugin {
     @Override
     public void onLoad() {
