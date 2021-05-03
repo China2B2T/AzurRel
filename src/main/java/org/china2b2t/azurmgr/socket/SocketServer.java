@@ -27,8 +27,6 @@ public class SocketServer extends WebSocketServer {
     @Override
     public void onOpen(WebSocket conn, ClientHandshake handshake) {
         instance.getLogger().info("New management connection: " + conn.getRemoteSocketAddress().getAddress().toString());
-        String token = Controller.getRandomToken();
-        conn.send("token$"+token);
     }
 
     @Override
@@ -39,6 +37,8 @@ public class SocketServer extends WebSocketServer {
         if (null != message && message.startsWith("tk_val")) {
             String tok = message.substring(6); // Token
             userJoin(conn, tok);//用户加入
+            String token = Controller.getRandomToken();
+            conn.send("token$"+token);
         } else if (null != message && message.startsWith("tk_revoke")) {
             userLeave(conn);
         }
