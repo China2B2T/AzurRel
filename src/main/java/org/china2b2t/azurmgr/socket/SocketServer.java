@@ -36,7 +36,7 @@ public class SocketServer extends WebSocketServer {
     public void onMessage(WebSocket conn, String message) {
         if (null != message && message.startsWith("tk_val")) {
             String tok = message.substring(6); // Token
-            userJoin(conn, tok);//用户加入
+            if(!userJoin(conn, tok))return;//用户加入
             String token = Controller.getRandomToken();
             conn.send("token$"+token);
         } else if (null != message && message.startsWith("tk_revoke")) {
@@ -46,6 +46,7 @@ public class SocketServer extends WebSocketServer {
             // U2FsdGVkX1++CgIiNDkBRFV8JerKuD/WzxH4WhY+GMWsty9sjB1xQRnJmnz4+avl/1YqK8KQMJJg2WR71hOm0yaSc3sxzEdoiuIzA6h0zD2Dkn6I2FawZxE5pymjOKZ7WJi1k7kFcXSd2Q==
             String operation = message.substring(13);
             String token = operation.split(":")[3];
+            if(!Controller.validateToken(conn, token))return;
             // TODO verify token
             int ret = ManTool.passConfigModify(operation.split(":")[0], operation.split(":")[1], operation.split(":")[2]);
         }
@@ -62,6 +63,7 @@ public class SocketServer extends WebSocketServer {
      * @param conn
      */
     private void userLeave(WebSocket conn){
+        Controller.revokeToken(conn);
         Controller.removeUser(conn);
     }
 
@@ -70,11 +72,13 @@ public class SocketServer extends WebSocketServer {
      * @param conn
      * @param userName
      */
-    private void userJoin(WebSocket conn, String userName){
+    private boolean userJoin(WebSocket conn, String userName){
         if(Validate.validate(userName.split(":")[0], userName.split(":")[1])) {
             Controller.addUser(userName.split(":")[0], conn);
+            return true;
         } else {
             conn.send("err$access_denied");
         }
+        return false;
     }
 }

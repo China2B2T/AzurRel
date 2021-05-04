@@ -10,7 +10,8 @@ import org.java_websocket.WebSocket;
  * 连接池控制器
  */
 public class Controller {
-    private static final Map<WebSocket, String> wsUserMap = new HashMap<WebSocket, String>();
+    private static Map<WebSocket, String> wsUserMap = new HashMap<WebSocket, String>();
+    protected static Map<String, WebSocket> tkMap = new HashMap<String, WebSocket>();
 
     /**
      * 通过websocket连接获取其对应的用户
@@ -126,5 +127,57 @@ public class Controller {
             randomStr.append(codes.charAt(random.nextInt(62)));
         }
         return randomStr.toString();
+    }
+
+    /**
+     * 校验令牌
+     * 
+     * @param conn
+     * @param token
+     * @return
+     */
+    public static boolean validateToken(WebSocket conn, String token) {
+        if(!tkMap.containsKey(token) || !tkMap.containsValue(conn)) {
+            return false;
+        } else if (tkMap.get(token) == conn) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 添加令牌
+     * 
+     * @param conn
+     * @param token
+     */
+    public static void addToken(WebSocket conn, String token) {
+        tkMap.put(token, conn);
+    }
+
+    /**
+     * 吊销令牌
+     * 
+     * @param token
+     */
+    public static void revokeToken(String token) {
+        tkMap.remove(token);
+    }
+
+    /**
+     * 吊销令牌
+     * 
+     * @param conn
+     */
+    public static void revokeToken(WebSocket conn) {
+        Set<String> st = tkMap.keySet();
+        synchronized(st) {
+            for(String tok : st) {
+                if(tkMap.get(tok) == conn) {
+                    tkMap.remove(tok);
+                    break;
+                }
+            }
+        }
     }
 }
