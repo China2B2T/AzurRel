@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class ManTool {
-    private static HashMap<Plugin, MgrTool> MgrList;
+    private static HashMap<JavaPlugin, MgrTool> mgrList;
 
     /**
      * Register a management tool
@@ -16,8 +16,8 @@ public class ManTool {
      * @param plug
      * @param mgr
      */
-    public void registerManager(Plugin plug, MgrTool mgr) {
-        MgrList.put(plug, mgr);
+    public void registerManager(final JavaPlugin plug, final MgrTool mgr) {
+        mgrList.put(plug, mgr);
     }
 
     /**
@@ -26,11 +26,11 @@ public class ManTool {
      * @param plug
      * @return
      */
-    public MgrTool lookUpManager(Plugin plug) {
-        if (!MgrList.containsKey(plug)) {
+    public MgrTool lookUpManager(final JavaPlugin plug) {
+        if (!mgrList.containsKey(plug)) {
             return null;
         }
-        return MgrList.get(plug);
+        return mgrList.get(plug);
     }
 
     /**
@@ -40,8 +40,17 @@ public class ManTool {
      * @param value
      * @return 0: ok | 1: not_same_type | 2: changed_nothing | 3: unknown_err
      */
-    public static int passConfigModify(String plugin, String key, Object value) {
-        MgrTool tol = MgrList.get(plugin);
+    public static int passConfigModify(final String plugin, final String key, final Object value) {
+        final Set<JavaPlugin> st = mgrList.keySet();
+        JavaPlugin pl = null;
+        for (final JavaPlugin plugin2 : st) {
+            if(plugin2.getName().equals(plugin)) {
+                pl = plugin2;
+                break;
+            }
+        }
+
+        final MgrTool tol = mgrList.get(pl);
         tol.setKey(key, value);
         return 0;
     }
@@ -52,9 +61,9 @@ public class ManTool {
      * @return Plugins List
      */
     public static List<String> getPlugins() {
-        ArrayList<String> plugins = new ArrayList<>();
-        Set<Plugin> keyPlugins = MgrList.keySet();
-        for (Plugin plugin : keyPlugins){
+        final ArrayList<String> plugins = new ArrayList<>();
+        final Set<JavaPlugin> keyPlugins = mgrList.keySet();
+        for (final JavaPlugin plugin : keyPlugins){
             plugins.add(plugin.getName());
         }
         return plugins;
