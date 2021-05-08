@@ -16,7 +16,7 @@ public class ManTool {
      * @param plug
      * @param mgr
      */
-    public void registerManager(final JavaPlugin plug, final ITool mgr) {
+    public static void registerManager(final JavaPlugin plug, final ITool mgr) {
         mgrList.put(plug, mgr);
     }
 
@@ -26,7 +26,7 @@ public class ManTool {
      * @param plug
      * @return
      */
-    public ITool lookUpManager(final JavaPlugin plug) {
+    public static ITool lookUpManager(final JavaPlugin plug) {
         if (!mgrList.containsKey(plug)) {
             return null;
         }
@@ -67,5 +67,21 @@ public class ManTool {
             plugins.add(plugin.getName());
         }
         return plugins;
+    }
+
+    /**
+     * Get ITool instance from string
+     * 
+     * @param name
+     * @return
+     */
+    public static ITool getIToolFromString(String name) {
+        final Set<JavaPlugin> plugins = mgrList.keySet();
+        for(JavaPlugin plugin : plugins) {
+            if(plugin.getName() == name) {
+                return mgrList.get(plugin);
+            }
+        }
+        return null;
     }
 }
