@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public interface MgrTool {
+public interface ITool {
     /**
      * Get the list of the settings
      * @return

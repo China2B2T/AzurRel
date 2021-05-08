@@ -8,7 +8,7 @@ import java.util.Set;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ManTool {
-    private static HashMap<JavaPlugin, MgrTool> mgrList;
+    private static HashMap<JavaPlugin, ITool> mgrList;
 
     /**
      * Register a management tool
@@ -16,7 +16,7 @@ public class ManTool {
      * @param plug
      * @param mgr
      */
-    public void registerManager(final JavaPlugin plug, final MgrTool mgr) {
+    public void registerManager(final JavaPlugin plug, final ITool mgr) {
         mgrList.put(plug, mgr);
     }
 
@@ -26,7 +26,7 @@ public class ManTool {
      * @param plug
      * @return
      */
-    public MgrTool lookUpManager(final JavaPlugin plug) {
+    public ITool lookUpManager(final JavaPlugin plug) {
         if (!mgrList.containsKey(plug)) {
             return null;
         }
@@ -50,7 +50,7 @@ public class ManTool {
             }
         }
 
-        final MgrTool tol = mgrList.get(pl);
+        final ITool tol = mgrList.get(pl);
         tol.setKey(key, value);
         return 0;
     }

@@ -14,16 +14,22 @@ public class CommandGenkey implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String args[]) {
         if(!sender.hasPermission("china2b2t.admin")) {
             sender.sendMessage(prefix + "Hey, you...don't do that >:(");
-            return true;
+            return false;
         }
-        if(args.length != 0) {
-            sender.sendMessage(prefix + "Too many arguments! Expected 0 but called " + args.length);
-            return true;
+
+        if(args.length != 1) {
+            sender.sendMessage(prefix + "Cannot fetch arguments! Expected 1 but called " + args.length);
+            return false;
         }
-        if(!Main.getPlugin(Main.class).getConfig().isBoolean("admin-info." + sender.getName() + ".enabled")) {
-            Main.getPlugin(Main.class).getConfig().set("admin-info." + sender.getName() + ".enabled", true);
+        
+        String key = KeyGen.genKey();
+        
+        if(!new Main().getConfig().isBoolean("api-access." + args[0] + ".enabled")) {
+            new Main().getConfig().set("api-access." + args[0] + ".enabled", true);
         }
-        Main.getPlugin(Main.class).getConfig().set("admin-info." + sender.getName() + ".key", KeyGen.genKey());
+
+        new Main().getConfig().set("api-access." + args[0] + ".key", key);
+        sender.sendMessage(prefix + "Generated key for " + args[0] + " successfully: " + key);
         return true;
     }
 }
