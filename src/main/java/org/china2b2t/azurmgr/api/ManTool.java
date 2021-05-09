@@ -84,4 +84,18 @@ public class ManTool {
         }
         return null;
     }
+
+    public static List<String> getKeysFromPlugin(String plugin) {
+        final Set<JavaPlugin> st = mgrList.keySet();
+        JavaPlugin pl = null;
+        for (final JavaPlugin plugin2 : st) {
+            if(plugin2.getName().equals(plugin)) {
+                pl = plugin2;
+                break;
+            }
+        }
+
+        final ITool tol = mgrList.get(pl);
+        return tol.getKeys();
+    }
 }
