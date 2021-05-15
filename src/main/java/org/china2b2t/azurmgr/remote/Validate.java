@@ -6,8 +6,8 @@ public class Validate {
     public static boolean validate(String name, String key) {
         // Cold down
         String path = "admin-info." + name;
-        return (new Main().getConfig().isString(path + ".key") &&
-                new Main().getConfig().isBoolean(path + ".enabled") &&
-                key.equals(new Main().getConfig().getString(path + ".key")));
+        return (Main.instance.getConfig().isString(path + ".key") &&
+                Main.instance.getConfig().isBoolean(path + ".enabled") &&
+                key.equals(Main.instance.getConfig().getString(path + ".key")));
     }
 }

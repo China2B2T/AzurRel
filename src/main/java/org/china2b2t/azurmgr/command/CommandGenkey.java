@@ -1,5 +1,7 @@
 package org.china2b2t.azurmgr.command;
 
+import javax.lang.model.element.Name;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,6 +14,7 @@ public class CommandGenkey implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String args[]) {
+        // Should use email to display gravatar?
         if(!sender.hasPermission("china2b2t.admin")) {
             sender.sendMessage(prefix + "Hey, you...don't do that >:(");
             return false;
@@ -23,13 +26,14 @@ public class CommandGenkey implements CommandExecutor {
         }
         
         String key = KeyGen.genKey();
+        String name = sender.getName();
         
-        if(!new Main().getConfig().isBoolean("api-access." + args[0] + ".enabled")) {
-            new Main().getConfig().set("api-access." + args[0] + ".enabled", true);
+        if(!Main.instance.getConfig().isBoolean("api-access." + name + ".enabled")) {
+            Main.instance.getConfig().set("api-access." + name + ".enabled", true);
         }
 
-        new Main().getConfig().set("api-access." + args[0] + ".key", key);
-        sender.sendMessage(prefix + "Generated key for " + args[0] + " successfully: " + key);
+        Main.instance.getConfig().set("api-access." + name + ".key", key);
+        sender.sendMessage(prefix + "Generated key for " + name + " successfully: " + key);
         return true;
     }
 }

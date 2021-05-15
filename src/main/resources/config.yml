@@ -1,6 +1,9 @@
 # 是否下线就删除管理权限
 temporary-permission: true
 
+# HTTP接口端口
+port: 8088
+
 # 控制面板API
 api-access:
   MyControlPanel:
