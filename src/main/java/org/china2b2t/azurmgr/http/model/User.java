@@ -1,4 +1,4 @@
-package org.china2b2t.azurmgr.http.Model;
+package org.china2b2t.azurmgr.http.model;
 
 public class User {
     public String nickname;

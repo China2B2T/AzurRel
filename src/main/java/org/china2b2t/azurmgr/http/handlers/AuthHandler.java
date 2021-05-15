@@ -10,13 +10,14 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import org.china2b2t.azurmgr.http.Model.User;
+import org.china2b2t.azurmgr.http.model.User;
 import org.china2b2t.azurmgr.http.handlers.request.Auth;
 import org.china2b2t.azurmgr.http.handlers.response.Err;
 import org.china2b2t.azurmgr.http.handlers.response.Token;
 import org.china2b2t.azurmgr.http.utils.Streams;
 import org.china2b2t.azurmgr.http.utils.TokenMgr;
 import org.china2b2t.azurmgr.remote.Validate;
+import org.json.JSONObject;
 
 public class AuthHandler implements HttpHandler {
     @Override
@@ -48,34 +49,26 @@ public class AuthHandler implements HttpHandler {
         try {
             args = Streams.is2string(is);
         } catch (Exception e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
-        }
-
-        if(args == null) {
             httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (GetListHandler.java > 1)\"}".length());
             os.write("{\"err\":\"internal error (GetListHandler.java > 1)\"}".getBytes());
             os.close();
             return;
         }
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.create();
-        Auth auth = gson.fromJson(args, Auth.class);
+        JSONObject json = new JSONObject(args);
+        String username = json.getString("username");
+        String password = json.getString("password");
 
-        if(Validate.validate(auth.username, auth.password)) {
+        if(Validate.validate(username, password)) {
             // Do stuff here
-            User user = new User(auth.username, "webmaster@china2b2t.org", System.currentTimeMillis() + 12000000);
+            User user = new User(username, "webmaster@china2b2t.org", System.currentTimeMillis() + 12000000);
             String tmpTk = TokenMgr.newToken(user);
-            Token callback = new Token(tmpTk);
-            String msag = gson.toJson(callback);
-            response.append(msag);
+            response.append("{\"status\":0,\"token\":\"" + tmpTk + "\"}");
         } else {
-            Err callback = new Err(1, "wrong authorize information");
-            String msag = gson.toJson(callback);
-            response.append(msag);
+            response.append("{\"err\":\"unauthorized\"}");
         }
-        httpExchange.sendResponseHeaders(200, response.length());
+        httpExchange.sendResponseHeaders(200, response.toString().length());
 
         is.close();
         os.write(response.toString().getBytes());
