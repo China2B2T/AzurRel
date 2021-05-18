@@ -27,7 +27,7 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         getServer().getPluginCommand("pluginmgr").setExecutor(new CommandPluginmgr());
         getServer().getPluginCommand("genkey").setExecutor(new CommandGenkey());
-        getServer().getMessenger().registerOutgoingPluginChannel(this, "QueueMgr");
+        // getServer().getMessenger().registerOutgoingPluginChannel(this, "QueueMgr");
         
         this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         
@@ -35,7 +35,10 @@ public class Main extends JavaPlugin {
             Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         }
         // Should I get current list from BungeeCord?
-        getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PluginMessage());
+        // getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PluginMessage());
+
+        // use mysql instead!
+        
         saveDefaultConfig();
         int apiPort = this.getConfig().getInt("port");
         boolean isApiEnabled = Server.startServer(apiPort);
