@@ -1,2 +1,2 @@
 # AzurMgr
-Plugin manager
+Utility server manager
