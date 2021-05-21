@@ -8,12 +8,24 @@ import org.china2b2t.azurmgr.http.model.User;
 public class TokenMgr {
     public static HashMap<String, User> userBucket = new HashMap<>();
 
+    /**
+     * Generate a token
+     *
+     * @param user
+     * @return
+     */
     public static String newToken(User user) {
         String token = KeyGen.genKey();
         userBucket.put(token, user);
         return token;
     }
 
+    /**
+     * Validate a token
+     *
+     * @param token
+     * @return
+     */
     public static boolean validate(String token) {
         if(!userBucket.containsKey(token)) {
             return false;
@@ -28,5 +40,18 @@ public class TokenMgr {
             userBucket.put(token, tmp);
         }
         return isExpired ? false : true;
+    }
+
+    /**
+     * Get the user from a token
+     *
+     * @param token
+     * @return
+     */
+    public static User getUser(String token) {
+        if(!userBucket.containsKey(token)) {
+            return null;
+        }
+        return userBucket.get(token);
     }
 }

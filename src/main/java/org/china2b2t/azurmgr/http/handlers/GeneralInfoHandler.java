@@ -8,6 +8,7 @@ import org.china2b2t.azurmgr.http.model.User;
 import org.china2b2t.azurmgr.http.utils.Streams;
 import org.china2b2t.azurmgr.http.utils.TokenMgr;
 import org.china2b2t.azurmgr.remote.Validate;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -51,8 +52,24 @@ public class GeneralInfoHandler implements HttpHandler {
             return;
         }
 
-        JSONObject json = new JSONObject(args);
-        String token = json.getString("token");
+        JSONObject json = null;
+        try {
+            json = new JSONObject(args);
+        } catch(JSONException e) {
+            httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".length());
+            os.write("{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".getBytes());
+            os.close();
+            return;
+        }
+        String token = null;
+        try {
+            token = json.getString("token");
+        } catch(JSONException e) {
+            httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".length());
+            os.write("{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".getBytes());
+            os.close();
+            return;
+        }
 
         if(TokenMgr.validate(token)) {
             int online = Main.instance.getServer().getOnlinePlayers().size();

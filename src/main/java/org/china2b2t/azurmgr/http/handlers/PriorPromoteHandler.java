@@ -1,13 +1,9 @@
 package org.china2b2t.azurmgr.http.handlers;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-
+import org.china2b2t.azurmgr.Main;
 import org.china2b2t.azurmgr.http.model.User;
 import org.china2b2t.azurmgr.http.utils.Streams;
 import org.china2b2t.azurmgr.http.utils.TokenMgr;
@@ -15,7 +11,11 @@ import org.china2b2t.azurmgr.remote.Validate;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AuthHandler implements HttpHandler {
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+public class PriorPromoteHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         InputStream is = httpExchange.getRequestBody();
@@ -46,8 +46,8 @@ public class AuthHandler implements HttpHandler {
             args = Streams.is2string(is);
         } catch (Exception e1) {
             e1.printStackTrace();
-            httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (AuthHandler.java > 1)\"}".length());
-            os.write("{\"err\":\"internal error (AuthHandler.java > 1)\"}".getBytes());
+            httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (GeneralInfoHandler.java > 1)\"}".length());
+            os.write("{\"err\":\"internal error (GeneralInfoHandler.java > 1)\"}".getBytes());
             os.close();
             return;
         }
@@ -56,27 +56,30 @@ public class AuthHandler implements HttpHandler {
         try {
             json = new JSONObject(args);
         } catch(JSONException e) {
-            httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (AuthHandler.java > 2)\"}".length());
-            os.write("{\"err\":\"internal error (AuthHandler.java > 2)\"}".getBytes());
+            httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".length());
+            os.write("{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".getBytes());
             os.close();
             return;
         }
-        String username = null, password = null;
+        String token = null, uuid = null;
         try {
-            username = json.getString("username");
-            password = json.getString("password");
+            token = json.getString("token");
+            uuid = json.getString("uuid");
         } catch(JSONException e) {
-            httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (AuthHandler.java > 2)\"}".length());
-            os.write("{\"err\":\"internal error (AuthHandler.java > 2)\"}".getBytes());
+            httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".length());
+            os.write("{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".getBytes());
             os.close();
             return;
         }
 
-        if(Validate.validate(username, password)) {
-            // Do stuff here
-            User user = new User(username, "webmaster@china2b2t.org", System.currentTimeMillis() + 12000000);
-            String tmpTk = TokenMgr.newToken(user);
-            response.append("{\"status\":0,\"token\":\"" + tmpTk + "\"}");
+        if(TokenMgr.validate(token)) {
+            if(!Main.instance.getConfig().isSet("prior-queue." + uuid)) {
+                Main.instance.getConfig().set("prior-queue." + uuid, System.currentTimeMillis() + 2592000000L);
+            } else {
+                long expire = Main.instance.getConfig().getLong("prior-queue." + uuid);
+                expire += 2592000000L;
+                Main.instance.getConfig().set("prior-queue." + uuid, expire);
+            }
         } else {
             response.append("{\"err\":\"unauthorized\"}");
         }

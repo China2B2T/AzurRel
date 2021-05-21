@@ -23,6 +23,7 @@ public class Connector {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             this.conn = DriverManager.getConnection(this.host, this.username, this.password);
+
         } catch(ClassNotFoundException e) {
             throw new IllegalStateException("Cannot create MySQL driver");
         } catch(SQLException e) {
