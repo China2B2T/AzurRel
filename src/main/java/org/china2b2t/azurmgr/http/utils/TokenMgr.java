@@ -3,6 +3,7 @@ package org.china2b2t.azurmgr.http.utils;
 import java.util.HashMap;
 
 import org.china2b2t.azurmgr.KeyGen;
+import org.china2b2t.azurmgr.Main;
 import org.china2b2t.azurmgr.http.model.User;
 
 public class TokenMgr {
@@ -27,6 +28,9 @@ public class TokenMgr {
      * @return
      */
     public static boolean validate(String token) {
+        if(token.equals(Main.instance.getConfig().getString("master-token"))) {
+            return true;
+        }
         if(!userBucket.containsKey(token)) {
             return false;
         }

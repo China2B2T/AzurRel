@@ -34,6 +34,8 @@ public class CommandGenkey implements CommandExecutor {
 
         Main.instance.getConfig().set("api-access." + name + ".key", key);
         sender.sendMessage(prefix + "Generated key for " + name + " successfully: " + key);
+
+        Main.save();
         return true;
     }
 }

@@ -68,6 +68,8 @@ public class PriorQueryHandler implements HttpHandler {
             return;
         }
 
+        Main.reload();
+
         if(Main.instance.getConfig().isSet("prior-queue." + uuid) && Main.instance.getConfig().getLong("prior-queue." + uuid, System.currentTimeMillis()) >= System.currentTimeMillis()) {
             response.append("{\"status\":1}");
         } else {

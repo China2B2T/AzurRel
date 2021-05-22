@@ -12,3 +12,10 @@ commands:
     aliases: [gkey, keygen]
   kill:
     description: Suicide
+  azurload:
+    description: Reload
+    aliases:
+      - aload
+      - azl
+      - al
+      - azload

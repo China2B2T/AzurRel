@@ -3,6 +3,7 @@ temporary-permission: false
 
 disable-join-quit-message: true
 
+master-token: J3CPEfOYx1dK82wuZiH07qDX
 # HTTP接口端口
 port: 8088
 
