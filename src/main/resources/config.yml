@@ -1,5 +1,7 @@
 # 是否下线就删除管理权限
-temporary-permission: true
+temporary-permission: false
+
+disable-join-quit-message: true
 
 # HTTP接口端口
 port: 8088

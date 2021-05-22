@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.china2b2t.azurmgr.command.CommandGenkey;
+import org.china2b2t.azurmgr.command.CommandKill;
 import org.china2b2t.azurmgr.command.CommandPluginmgr;
 import org.china2b2t.azurmgr.http.Server;
 import org.china2b2t.azurmgr.listener.PlayerListener;
@@ -27,6 +28,7 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         getServer().getPluginCommand("pluginmgr").setExecutor(new CommandPluginmgr());
         getServer().getPluginCommand("genkey").setExecutor(new CommandGenkey());
+        getServer().getPluginCommand("kill").setExecutor(new CommandKill());
         // getServer().getMessenger().registerOutgoingPluginChannel(this, "QueueMgr");
         
         this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);

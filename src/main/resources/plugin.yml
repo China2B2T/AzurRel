@@ -10,3 +10,5 @@ commands:
   genkey:
     description: Generate a master key
     aliases: [gkey, keygen]
+  kill:
+    description: Suicide
