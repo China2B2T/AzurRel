@@ -1,7 +1,7 @@
 main: org.china2b2t.azurmgr.Main
 name: AzurMgr
 version: 1.0
-author: Rabbit0w0
+author: [ Rabbit0w0 , lushangkan ]
 api-version: 1.12
 commands:
   pluginmgr:
