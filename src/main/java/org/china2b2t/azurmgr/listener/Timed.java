@@ -23,7 +23,7 @@ public class Timed {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         Instant instStart = calendar.getTime().toInstant();
-        long l = Duration.between(instNow, instStart).toMinutes();
+        long l = Duration.between(instNow, instStart).toMillis()/1000;
         Main.instance.getServer().getScheduler().runTaskLater(Main.instance,() ->{
             Main.instance.getServer().setWhitelist(false);
             Instant instNow1 = Instant.now();
@@ -34,7 +34,7 @@ public class Timed {
             calendar1.set(Calendar.SECOND, 0);
             calendar1.set(Calendar.MILLISECOND, 0);
             Instant instEnd = calendar1.getTime().toInstant();
-            long l1 = Duration.between(instNow1, instEnd).toMinutes();
+            long l1 = Duration.between(instNow1, instEnd).toMinutes()/1000;
             Main.instance.getServer().getScheduler().runTaskLater(Main.instance,() ->{
                 Main.instance.getServer().setWhitelist(true);
                 new Timed();
