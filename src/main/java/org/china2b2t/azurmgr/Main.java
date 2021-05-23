@@ -1,5 +1,9 @@
 package org.china2b2t.azurmgr;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -13,6 +17,7 @@ import org.china2b2t.azurmgr.command.CommandPluginmgr;
 import org.china2b2t.azurmgr.http.Server;
 import org.china2b2t.azurmgr.listener.PlayerListener;
 import org.china2b2t.azurmgr.listener.PluginMessage;
+import org.china2b2t.azurmgr.listener.Timed;
 
 // LyoqCiAqIEkgV0lMTCBBTFdBWVMgVE8gQkxBTUUgTVlTRUxGCiAqIFdIWSBBTSBJIFNPIFNFTEZJU0gKICogV0hZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZCiAqLw==
 
@@ -49,6 +54,7 @@ public class Main extends JavaPlugin {
         if(!isApiEnabled) {
             this.getLogger().log(Level.SEVERE, "Cannot enable API server!");
         }
+        new Timed();
     }
 
     public JavaPlugin getInstance() {

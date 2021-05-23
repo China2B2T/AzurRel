@@ -2,7 +2,10 @@ package org.china2b2t.azurmgr.http;
 
 import com.sun.net.httpserver.HttpServer;
 
-import org.china2b2t.azurmgr.http.handlers.*;
+import org.china2b2t.azurmgr.http.handlers.AuthHandler;
+import org.china2b2t.azurmgr.http.handlers.GeneralInfoHandler;
+import org.china2b2t.azurmgr.http.handlers.GetOpHandler;
+import org.china2b2t.azurmgr.http.handlers.IndexHandler;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -19,12 +22,7 @@ public class Server {
             server.createContext("/api/auth/basic.action", new AuthHandler());
             server.createContext("/api/general/info.action", new GeneralInfoHandler());
             server.createContext("/api/settings/op.action", new GetOpHandler());
-            server.createContext("/api/ping.action", new PingHandler());
-            server.createContext("/api/my/profile.action", new ProfileHandler());
-            server.createContext("/api/queue/query.action", new PriorQueryHandler());
-            server.createContext("/api/queue/promote.action", new PriorPromoteHandler());
             server.createContext("/", new IndexHandler());
-
             server.setExecutor(Executors.newFixedThreadPool(4));
             server.start();
         } catch (IOException e) {
