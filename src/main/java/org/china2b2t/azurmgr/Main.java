@@ -1,5 +1,7 @@
 package org.china2b2t.azurmgr;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Calendar;
@@ -8,6 +10,7 @@ import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.china2b2t.azurmgr.command.CommandAzurload;
@@ -23,6 +26,7 @@ import org.china2b2t.azurmgr.listener.Timed;
 
 public class Main extends JavaPlugin {
     public static JavaPlugin instance = null;
+    public static Configuration priorConfig;
 
     @Override
     public void onLoad() {
@@ -46,15 +50,19 @@ public class Main extends JavaPlugin {
         // Should I get current list from BungeeCord?
         // getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PluginMessage());
 
-        // use mysql instead!
+        File defConfig = new File(this.getDataFolder(), "config.yml");
+        if(!defConfig.exists()) {
+            saveDefaultConfig();
+        }
         
-        saveDefaultConfig();
         int apiPort = this.getConfig().getInt("port");
         boolean isApiEnabled = Server.startServer(apiPort);
         if(!isApiEnabled) {
             this.getLogger().log(Level.SEVERE, "Cannot enable API server!");
         }
-        new Timed();
+
+        // SuperHuang233 rejected
+        // new Timed();
     }
 
     public JavaPlugin getInstance() {

@@ -66,7 +66,7 @@ public class PriorPromoteHandler implements HttpHandler {
             token = json.getString("token");
             uuid = json.getString("uuid");
         } catch(JSONException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".length());
             os.write("{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".getBytes());
             os.close();

@@ -12,7 +12,9 @@ public class CommandAzurload implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         if(sender.hasPermission("china2b2t.admin")) {
+            Main.instance.saveConfig();
             Main.instance.reloadConfig();
+            sender.sendMessage(prefix + "Reloaded successfully!");
         } else {
             sender.sendMessage(prefix + "Hey, you...don't do that >:(");
         }
