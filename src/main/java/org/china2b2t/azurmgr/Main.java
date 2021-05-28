@@ -106,8 +106,13 @@ public class Main extends JavaPlugin {
         return this;
     }
 
+    /**
+     * Reload configurations
+     */
     public static void reload() {
         instance.reloadConfig();
+        accConfig = load(Main.instance, "access.yml");
+        priorConfig = load(Main.instance, "prior.yml");
     }
 
     /**
@@ -121,6 +126,5 @@ public class Main extends JavaPlugin {
             Main.instance.getLogger().log(Level.SEVERE, "Could not save configurations");
             e.printStackTrace();
         }
-
     }
 }
