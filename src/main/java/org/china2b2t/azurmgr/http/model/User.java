@@ -2,7 +2,6 @@ package org.china2b2t.azurmgr.http.model;
 
 public class User {
     public String nickname;
-    public String email;
     public long expire;
 
     /**
@@ -11,9 +10,8 @@ public class User {
      * @param nickname
      * @param email
      */
-    public User(String nickname, String email, long expire) {
+    public User(String nickname, long expire) {
         this.nickname = nickname;
-        this.email = email;
         this.expire = expire;
     }
 }

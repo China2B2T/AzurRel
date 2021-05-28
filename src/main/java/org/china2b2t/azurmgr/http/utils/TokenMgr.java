@@ -28,7 +28,7 @@ public class TokenMgr {
      * @return
      */
     public static boolean validate(String token) {
-        if(token.equals(Main.instance.getConfig().getString("master-token"))) {
+        if(token.equals(Main.roConfig.getString("master-token"))) {
             return true;
         }
         if(!userBucket.containsKey(token)) {

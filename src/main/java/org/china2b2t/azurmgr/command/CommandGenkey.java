@@ -1,7 +1,5 @@
 package org.china2b2t.azurmgr.command;
 
-import javax.lang.model.element.Name;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,11 +26,11 @@ public class CommandGenkey implements CommandExecutor {
         String key = KeyGen.genKey();
         String name = sender.getName();
         
-        if(!Main.instance.getConfig().isBoolean("api-access." + name + ".enabled")) {
-            Main.instance.getConfig().set("api-access." + name + ".enabled", true);
+        if(!Main.accConfig.isBoolean(name + ".enabled")) {
+            Main.accConfig.set(name + ".enabled", true);
         }
 
-        Main.instance.getConfig().set("api-access." + name + ".key", key);
+        Main.accConfig.set(name + ".key", key);
         sender.sendMessage(prefix + "Generated key for " + name + " successfully: " + key);
 
         Main.save();

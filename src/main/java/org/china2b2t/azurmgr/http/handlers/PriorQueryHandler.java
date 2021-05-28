@@ -9,10 +9,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import org.china2b2t.azurmgr.Main;
-import org.china2b2t.azurmgr.http.model.User;
+import org.china2b2t.azurmgr.config.Queue;
 import org.china2b2t.azurmgr.http.utils.Streams;
-import org.china2b2t.azurmgr.http.utils.TokenMgr;
-import org.china2b2t.azurmgr.remote.Validate;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -70,7 +68,7 @@ public class PriorQueryHandler implements HttpHandler {
 
         Main.reload();
 
-        if(Main.instance.getConfig().isSet("prior-queue." + uuid) && Main.instance.getConfig().getLong("prior-queue." + uuid, System.currentTimeMillis()) >= System.currentTimeMillis()) {
+        if(Queue.isPrior(uuid)) {
             response.append("{\"status\":1}");
         } else {
             response.append("{\"status\":0}");

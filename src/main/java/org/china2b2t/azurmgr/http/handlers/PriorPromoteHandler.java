@@ -4,16 +4,17 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.china2b2t.azurmgr.Main;
+import org.china2b2t.azurmgr.config.Admin;
 import org.china2b2t.azurmgr.http.model.User;
 import org.china2b2t.azurmgr.http.utils.Streams;
 import org.china2b2t.azurmgr.http.utils.TokenMgr;
-import org.china2b2t.azurmgr.remote.Validate;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Queue;
 
 public class PriorPromoteHandler implements HttpHandler {
     @Override
@@ -74,13 +75,7 @@ public class PriorPromoteHandler implements HttpHandler {
         }
 
         if(TokenMgr.validate(token)) {
-            if(!Main.instance.getConfig().isSet("prior-queue." + uuid)) {
-                Main.instance.getConfig().set("prior-queue." + uuid, System.currentTimeMillis() + 2592000000L);
-            } else {
-                long expire = Main.instance.getConfig().getLong("prior-queue." + uuid);
-                expire += 2592000000L;
-                Main.instance.getConfig().set("prior-queue." + uuid, expire);
-            }
+            org.china2b2t.azurmgr.config.Queue.promotePrior(uuid, 2592000000L);
 
             Main.save();
         } else {

@@ -8,10 +8,10 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import org.china2b2t.azurmgr.config.Admin;
 import org.china2b2t.azurmgr.http.model.User;
 import org.china2b2t.azurmgr.http.utils.Streams;
 import org.china2b2t.azurmgr.http.utils.TokenMgr;
-import org.china2b2t.azurmgr.remote.Validate;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -72,9 +72,9 @@ public class AuthHandler implements HttpHandler {
             return;
         }
 
-        if(Validate.validate(username, password)) {
+        if(Admin.validate(username, password)) {
             // Do stuff here
-            User user = new User(username, "webmaster@china2b2t.org", System.currentTimeMillis() + 12000000);
+            User user = new User(username, System.currentTimeMillis() + 12000000);
             String tmpTk = TokenMgr.newToken(user);
             response.append("{\"status\":0,\"token\":\"" + tmpTk + "\"}");
         } else {
