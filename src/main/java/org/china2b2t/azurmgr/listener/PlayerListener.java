@@ -11,11 +11,11 @@ import org.china2b2t.azurmgr.Main;
 public class PlayerListener implements Listener {
     @EventHandler
     public void onLeft(PlayerQuitEvent e) {
-        if(Main.roConfig.getBoolean("disable-join-quit-message")) {
+        if (Main.roConfig.getBoolean("disable-join-quit-message")) {
             e.setQuitMessage(null);
         }
-        if(Main.roConfig.getBoolean("temporary-permission")) {
-            if(e.getPlayer().isOp()) {
+        if (Main.roConfig.getBoolean("temporary-permission")) {
+            if (e.getPlayer().isOp()) {
                 e.getPlayer().setOp(false);
             }
         }
@@ -23,14 +23,14 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        if(Main.roConfig.getBoolean("disable-join-quit-message")) {
+        if (Main.roConfig.getBoolean("disable-join-quit-message")) {
             e.setJoinMessage(null);
         }
     }
 
     @EventHandler
     public void  asyncChat(AsyncPlayerChatEvent e) {
-        if(e.getMessage().charAt(0) == '>') {
+        if (e.getMessage().charAt(0) == '>') {
             e.setMessage(ChatColor.GREEN + e.getMessage());
 
         }

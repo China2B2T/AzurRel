@@ -18,10 +18,11 @@ public class Server {
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
             server.createContext("/api/auth/basic.action", new AuthHandler());
             server.createContext("/api/general/info.action", new GeneralInfoHandler());
+            server.createContext("/api/general/me.action", new ProfileHandler());
             server.createContext("/api/settings/op.action", new GetOpHandler());
+            server.createContext("/api/settings/whitelist.action", new WhitelistHandler());
             server.createContext("/api/queue/query.action", new PriorQueryHandler());
             server.createContext("/api/queue/promote.action", new PriorPromoteHandler());
-            server.createContext("/api/general/me.action", new ProfileHandler());
             server.createContext("/api/ping.action", new PingHandler());
             server.createContext("/", new IndexHandler());
             server.setExecutor(Executors.newFixedThreadPool(4));

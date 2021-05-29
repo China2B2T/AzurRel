@@ -71,7 +71,7 @@ public class ProfileHandler implements HttpHandler {
             return;
         }
 
-        if(TokenMgr.validate(token)) {
+        if (TokenMgr.validate(token)) {
             User user = TokenMgr.getUser(token);
             String nickname = user.nickname;
             response.append("{\"nickname\":\"" + nickname + "\"}");

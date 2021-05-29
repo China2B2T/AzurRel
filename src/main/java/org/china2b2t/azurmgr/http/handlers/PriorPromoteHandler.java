@@ -57,8 +57,8 @@ public class PriorPromoteHandler implements HttpHandler {
         try {
             json = new JSONObject(args);
         } catch(JSONException e) {
-            httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".length());
-            os.write("{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".getBytes());
+            httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (PriorPromoteHandler.java > 2)\"}".length());
+            os.write("{\"err\":\"internal error (PriorPromoteHandler.java > 2)\"}".getBytes());
             os.close();
             return;
         }
@@ -68,13 +68,13 @@ public class PriorPromoteHandler implements HttpHandler {
             uuid = json.getString("uuid");
         } catch(JSONException e) {
             // e.printStackTrace();
-            httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".length());
-            os.write("{\"err\":\"internal error (GeneralInfoHandler.java > 2)\"}".getBytes());
+            httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (PriorPromoteHandler.java > 2)\"}".length());
+            os.write("{\"err\":\"internal error (PriorPromoteHandler.java > 2)\"}".getBytes());
             os.close();
             return;
         }
 
-        if(TokenMgr.validate(token)) {
+        if (TokenMgr.validate(token)) {
             org.china2b2t.azurmgr.config.Queue.promotePrior(uuid, 2592000000L);
 
             Main.save();

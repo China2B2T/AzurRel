@@ -74,23 +74,23 @@ public class Main extends JavaPlugin {
         // getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PluginMessage());
 
         File defConfig = new File(this.getDataFolder(), "config.yml");
-        if(!defConfig.exists()) {
+        if (!defConfig.exists()) {
             saveDefaultConfig();
         }
 
         File queueConfig = new File(this.getDataFolder(), "prior.yml");
-        if(!queueConfig.exists()) {
+        if (!queueConfig.exists()) {
             saveDefaultConfig(this, "prior.yml");
         }
 
         File accessConfig = new File(this.getDataFolder(), "access.yml");
-        if(!accessConfig.exists()) {
+        if (!accessConfig.exists()) {
             saveDefaultConfig(this, "access.yml");
         }
         
         int apiPort = this.getConfig().getInt("port");
         boolean isApiEnabled = Server.startServer(apiPort);
-        if(!isApiEnabled) {
+        if (!isApiEnabled) {
             this.getLogger().log(Level.SEVERE, "Cannot enable API server!");
         }
 
