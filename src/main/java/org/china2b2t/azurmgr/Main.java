@@ -69,23 +69,23 @@ public class Main extends JavaPlugin {
         // getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PluginMessage());
 
         File defConfig = new File(this.getDataFolder(), "config.yml");
-        if(!defConfig.exists()) {
+        if (!defConfig.exists()) {
             saveDefaultConfig();
         }
 
         File queueConfig = new File(this.getDataFolder(), "prior.yml");
-        if(!queueConfig.exists()) {
+        if (!queueConfig.exists()) {
             saveDefaultConfig(this, "prior.yml");
         }
 
         File accessConfig = new File(this.getDataFolder(), "access.yml");
-        if(!accessConfig.exists()) {
+        if (!accessConfig.exists()) {
             saveDefaultConfig(this, "access.yml");
         }
         
         int apiPort = this.getConfig().getInt("port");
         boolean isApiEnabled = Server.startServer(apiPort);
-        if(!isApiEnabled) {
+        if (!isApiEnabled) {
             this.getLogger().log(Level.SEVERE, "Cannot enable API server!");
         }
 
@@ -101,21 +101,26 @@ public class Main extends JavaPlugin {
         return this;
     }
 
+    /**
+     * Reload configurations
+     */
     public static void reload() {
         instance.reloadConfig();
+        accConfig = load(Main.instance, "access.yml");
+        priorConfig = load(Main.instance, "prior.yml");
     }
 
     /**
      * Save configurations
      */
     public static void save() {
+        File prior = new File(instance.getDataFolder(), "prior.yml");
+        File access = new File(instance.getDataFolder(), "access.yml");
         try {
-            priorConfig.save("prior.yml");
-            accConfig.save("access.yml");
-        } catch(IOException e) {
-            Main.instance.getLogger().log(Level.SEVERE, "Could not save configurations");
-            e.printStackTrace();
+            priorConfig.save(prior);
+            accConfig.save(access);
+        } catch (IOException e) {
+            instance.getLogger().log(Level.SEVERE, "Could not save configurations");
         }
-
     }
 }

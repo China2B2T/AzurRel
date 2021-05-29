@@ -10,11 +10,11 @@ public class Queue {
      * @return
      */
     public static boolean isPrior(String uuid) {
-        if(!Main.priorConfig.isSet(uuid)) {
+        if (!Main.priorConfig.isSet(uuid)) {
             return false;
         }
-        if(Main.priorConfig.isLong(uuid)) {
-            if(Main.priorConfig.getLong(uuid) >= System.currentTimeMillis()) {
+        if (Main.priorConfig.isLong(uuid)) {
+            if (Main.priorConfig.getLong(uuid) >= System.currentTimeMillis()) {
                 return true;
             }
         }
@@ -28,10 +28,10 @@ public class Queue {
      * @param period
      */
     public static void promotePrior(String uuid, long period) {
-        if(!Main.priorConfig.isSet(uuid)) {
+        if (!Main.priorConfig.isSet(uuid)) {
             return;
         }
-        if(Main.priorConfig.isLong(uuid)) {
+        if (Main.priorConfig.isLong(uuid)) {
             long expire = Main.priorConfig.getLong(uuid);
             expire += period;
             Main.priorConfig.set(uuid, expire);

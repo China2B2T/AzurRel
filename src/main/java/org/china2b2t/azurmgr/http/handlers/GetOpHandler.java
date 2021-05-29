@@ -56,9 +56,9 @@ public class GetOpHandler implements HttpHandler {
         String player = json.getString("player");
         int operation = json.getInt("type");
 
-        if(TokenMgr.validate(token)) {
+        if (TokenMgr.validate(token)) {
             try{
-                if(operation == -1) {
+                if (operation == -1) {
                     boolean isOp = Main.instance.getServer().getPlayer(player).isOp();
                     response.append("{\"status\":0,\"isop\":" + isOp + "}");
                 } else {

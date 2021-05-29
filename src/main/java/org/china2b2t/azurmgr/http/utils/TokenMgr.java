@@ -28,15 +28,15 @@ public class TokenMgr {
      * @return
      */
     public static boolean validate(String token) {
-        if(token.equals(Main.roConfig.getString("master-token"))) {
+        if (token.equals(Main.roConfig.getString("master-token"))) {
             return true;
         }
-        if(!userBucket.containsKey(token)) {
+        if (!userBucket.containsKey(token)) {
             return false;
         }
         User user = userBucket.get(token);
         boolean isExpired = System.currentTimeMillis() >= user.expire;
-        if(isExpired) {
+        if (isExpired) {
             userBucket.remove(token);
         } else {
             User tmp = userBucket.get(token);
@@ -53,7 +53,7 @@ public class TokenMgr {
      * @return
      */
     public static User getUser(String token) {
-        if(!userBucket.containsKey(token)) {
+        if (!userBucket.containsKey(token)) {
             return null;
         }
         return userBucket.get(token);

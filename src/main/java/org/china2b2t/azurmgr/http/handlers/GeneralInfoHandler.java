@@ -71,7 +71,7 @@ public class GeneralInfoHandler implements HttpHandler {
             return;
         }
 
-        if(TokenMgr.validate(token)) {
+        if (TokenMgr.validate(token)) {
             int online = Main.instance.getServer().getOnlinePlayers().size();
             int max = Main.instance.getServer().getMaxPlayers();
             response.append("{\"status\":0,\"online\":" + online + ",\"max\":" + max + "}");

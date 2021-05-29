@@ -13,12 +13,12 @@ public class CommandGenkey implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String args[]) {
         // Should use email to display gravatar?
-        if(!sender.hasPermission("china2b2t.admin")) {
+        if (!sender.hasPermission("china2b2t.admin")) {
             sender.sendMessage(prefix + "Hey, you...don't do that >:(");
             return false;
         }
 
-        if(args.length != 0) {
+        if (args.length != 0) {
             sender.sendMessage(prefix + "Cannot fetch arguments! Expected 0 but called " + args.length);
             return false;
         }
@@ -26,7 +26,7 @@ public class CommandGenkey implements CommandExecutor {
         String key = KeyGen.genKey();
         String name = sender.getName();
         
-        if(!Main.accConfig.isBoolean(name + ".enabled")) {
+        if (!Main.accConfig.isBoolean(name + ".enabled")) {
             Main.accConfig.set(name + ".enabled", true);
         }
 

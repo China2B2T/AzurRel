@@ -72,7 +72,7 @@ public class AuthHandler implements HttpHandler {
             return;
         }
 
-        if(Admin.validate(username, password)) {
+        if (Admin.validate(username, password)) {
             // Do stuff here
             User user = new User(username, System.currentTimeMillis() + 12000000);
             String tmpTk = TokenMgr.newToken(user);

@@ -68,7 +68,7 @@ public class PriorQueryHandler implements HttpHandler {
 
         Main.reload();
 
-        if(Queue.isPrior(uuid)) {
+        if (Queue.isPrior(uuid)) {
             response.append("{\"status\":1}");
         } else {
             response.append("{\"status\":0}");
