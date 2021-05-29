@@ -119,12 +119,13 @@ public class Main extends JavaPlugin {
      * Save configurations
      */
     public static void save() {
+        File prior = new File(instance.getDataFolder(), "prior.yml");
+        File access = new File(instance.getDataFolder(), "access.yml");
         try {
-            priorConfig.save("prior.yml");
-            accConfig.save("access.yml");
-        } catch(IOException e) {
-            Main.instance.getLogger().log(Level.SEVERE, "Could not save configurations");
-            e.printStackTrace();
+            priorConfig.save(prior);
+            accConfig.save(access);
+        } catch (IOException e) {
+            instance.getLogger().log(Level.SEVERE, "Could not save configurations");
         }
     }
 }
