@@ -10,8 +10,6 @@ commands:
   genkey:
     description: Generate a master key
     aliases: [gkey, keygen]
-  kill:
-    description: Suicide
   azurload:
     description: Reload
     aliases:

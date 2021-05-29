@@ -1,25 +1,6 @@
 # 是否下线就删除管理权限
 temporary-permission: false
 
-disable-join-quit-message: true
-
 master-token: J3CPEfOYx1dK82wuZiH07qDX
 # HTTP接口端口
 port: 8088
-
-# 控制面板API
-api-access:
-  MyControlPanel:
-    # 密钥
-    key: "XXXXXXXXXXXXXXXXXXXXXXXX"
-    # 是否被启用
-    enabled: false
-
-prior-queue:
-  b51db1b5d70b4dae846ee9020f71dab6: 0
-#mysql:
-#  enabled: false
-#  host: "jdbc:mysql://localhost:3306/"
-#  username: root
-#  password: root
-#  table: moe

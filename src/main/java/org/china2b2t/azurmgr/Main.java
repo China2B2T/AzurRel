@@ -11,10 +11,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.china2b2t.azurmgr.command.CommandAzurload;
 import org.china2b2t.azurmgr.command.CommandGenkey;
-import org.china2b2t.azurmgr.command.CommandKill;
 import org.china2b2t.azurmgr.command.CommandPluginmgr;
 import org.china2b2t.azurmgr.http.Server;
-import org.china2b2t.azurmgr.listener.PlayerListener;
 
 public class Main extends JavaPlugin {
     public static JavaPlugin instance = null;
@@ -61,11 +59,8 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         getServer().getPluginCommand("pluginmgr").setExecutor(new CommandPluginmgr());
         getServer().getPluginCommand("genkey").setExecutor(new CommandGenkey());
-        getServer().getPluginCommand("kill").setExecutor(new CommandKill());
         getServer().getPluginCommand("azurload").setExecutor(new CommandAzurload());
         // getServer().getMessenger().registerOutgoingPluginChannel(this, "QueueMgr");
-        
-        this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         
         if (!Bukkit.getMessenger().isOutgoingChannelRegistered(this, "BungeeCord")) {
             Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
