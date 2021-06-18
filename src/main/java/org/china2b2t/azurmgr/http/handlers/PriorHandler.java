@@ -22,7 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 
-public class WhitelistHandler implements HttpHandler {
+public class PriorHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         InputStream is = httpExchange.getRequestBody();
@@ -80,37 +80,9 @@ public class WhitelistHandler implements HttpHandler {
         }
 
         if (TokenMgr.validate(token)) {
-            if (json.has("add")) {
-                try {
-                    for (Iterator<Object> it = json.getJSONArray("add").iterator(); it.hasNext(); ) {
-                        Object player = it.next();
-                        if (player instanceof String) {
-                            ((String)player).replace("\n", "");
-                            BukkitScheduler scheduler = Bukkit.getScheduler();
-                            scheduler.scheduleSyncDelayedTask(Main.instance, () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "whitelist add " + player), 0L);
-                        }
-                    }
-                } catch(JSONException e) {
-                    e.printStackTrace();
-                }
-            }
 
-            if (json.has("remove")) {
-                try {
-                    for (Iterator<Object> it = json.getJSONArray("remove").iterator(); it.hasNext(); ) {
-                        Object player = it.next();
-                        if (player instanceof String) {
-                            ((String)player).replace("\n", "");
-                            BukkitScheduler scheduler = Bukkit.getScheduler();
-                            scheduler.scheduleSyncDelayedTask(Main.instance, () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "whitelist remove " + player), 0L);
-                        }
-                    }
-                } catch(JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+            // Operation
 
-            response.append("{\"status\":0}");
         } else {
             response.append("{\"err\":\"unauthorized\"}");
         }

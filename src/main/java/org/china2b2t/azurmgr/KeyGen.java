@@ -1,6 +1,11 @@
 package org.china2b2t.azurmgr;
 
 public class KeyGen {
+    /**
+     * Generate a key randomly
+     *
+     * @return
+     */
     public static String genKey() {
         String source = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder builder = new StringBuilder();

@@ -5,6 +5,13 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 public class Streams {
+    /**
+     * Convert InputStream to String
+     *
+     * @param is
+     * @return
+     * @throws Exception
+     */
     public static String is2string(InputStream is) throws Exception {
         final int bufferSize = 1024;
         final char[] buffer = new char[bufferSize];
