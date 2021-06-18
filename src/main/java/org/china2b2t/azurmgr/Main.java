@@ -58,13 +58,10 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         getServer().getPluginCommand("genkey").setExecutor(new CommandGenkey());
         getServer().getPluginCommand("azurload").setExecutor(new CommandAzurload());
-        // getServer().getMessenger().registerOutgoingPluginChannel(this, "QueueMgr");
         
         if (!Bukkit.getMessenger().isOutgoingChannelRegistered(this, "BungeeCord")) {
             Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         }
-        // Should I get current list from BungeeCord?
-        // getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PluginMessage());
 
         File defConfig = new File(this.getDataFolder(), "config.yml");
         if (!defConfig.exists()) {

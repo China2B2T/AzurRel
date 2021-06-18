@@ -3,6 +3,7 @@ package org.china2b2t.azurmgr.http;
 import com.sun.net.httpserver.HttpServer;
 
 import org.china2b2t.azurmgr.http.handlers.*;
+import org.china2b2t.azurmgr.http.handlers.query.GeneralQuery;
 import org.china2b2t.azurmgr.http.handlers.query.WhitelistQuery;
 
 import java.io.IOException;
@@ -27,7 +28,11 @@ public class Server {
 
                 // Query
                 server.createContext("/api/query/whitelist.action", new WhitelistQuery());
+                server.createContext("/api/query/general.action", new GeneralQuery());
+
+                // Index
                 server.createContext("/", new IndexHandler());
+
                 server.setExecutor(Executors.newFixedThreadPool(4));
                 server.start();
             } catch (IOException e) {
