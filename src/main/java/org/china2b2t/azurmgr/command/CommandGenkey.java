@@ -18,13 +18,13 @@ public class CommandGenkey implements CommandExecutor {
             return false;
         }
 
-        if (args.length != 0) {
-            sender.sendMessage(prefix + "Cannot fetch arguments! Expected 0 but called " + args.length);
+        if (args.length != 1) {
+            sender.sendMessage(prefix + "Cannot fetch arguments! Expected 1 but called " + args.length);
             return false;
         }
         
         String key = KeyGen.genKey();
-        String name = sender.getName();
+        String name = args[0];
         
         if (!Main.accConfig.isBoolean(name + ".enabled")) {
             Main.accConfig.set(name + ".enabled", true);

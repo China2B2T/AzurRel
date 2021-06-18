@@ -3,7 +3,9 @@ package org.china2b2t.azurmgr.http.handlers;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.china2b2t.azurmgr.Main;
 import org.china2b2t.azurmgr.config.Admin;
 import org.china2b2t.azurmgr.http.model.User;
@@ -77,54 +79,35 @@ public class WhitelistHandler implements HttpHandler {
             return;
         }
 
-        boolean swi = true;
-        if (json.has("switch")) {
-            try{
-                swi = json.getBoolean("switch");
-            } catch(JSONException e) {
-                httpExchange.sendResponseHeaders(500, "{\"err\":\"internal error (WhitelistHandler.java > 2)\"}".length());
-                os.write("{\"err\":\"internal error (WhitelistHandler.java > 2)\"}".getBytes());
-                os.close();
-                return;
-            }
-        }
-
         if (TokenMgr.validate(token)) {
             if (json.has("add")) {
                 try {
                     for (Iterator<Object> it = json.getJSONArray("add").iterator(); it.hasNext(); ) {
                         Object player = it.next();
                         if (player instanceof String) {
-                            try {
-                                Player p = Main.instance.getServer().getPlayer((String) player);
-                                p.setWhitelisted(true);
-                            } catch (Exception e) {
-                                // ignored
-                            }
+                            ((String)player).replace("\n", "");
+                            BukkitScheduler scheduler = Bukkit.getScheduler();
+                            scheduler.scheduleSyncDelayedTask(Main.instance, () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "whitelist add " + player), 0L);
                         }
                     }
                 } catch(JSONException e) {
-                    // ignored
+                    e.printStackTrace();
                 }
             }
+
             if (json.has("remove")) {
                 try {
                     for (Iterator<Object> it = json.getJSONArray("remove").iterator(); it.hasNext(); ) {
                         Object player = it.next();
                         if (player instanceof String) {
-                            try {
-                                Player p = Main.instance.getServer().getPlayer((String) player);
-                                p.setWhitelisted(false);
-                            } catch (Exception e) {
-                                // ignored
-                            }
+                            ((String)player).replace("\n", "");
+                            BukkitScheduler scheduler = Bukkit.getScheduler();
+                            scheduler.scheduleSyncDelayedTask(Main.instance, () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "whitelist remove " + player), 0L);
                         }
                     }
                 } catch(JSONException e) {
-                    // ignored
+                    e.printStackTrace();
                 }
-
-                Main.instance.getServer().setWhitelist(swi);
             }
         } else {
             response.append("{\"err\":\"unauthorized\"}");

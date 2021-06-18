@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="AzurMgr" target="1.8" />
+      <module name="AzurMgr" target="10" />
     </bytecodeTargetLevel>
   </component>
 </project>

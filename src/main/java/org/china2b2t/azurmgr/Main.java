@@ -11,7 +11,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.china2b2t.azurmgr.command.CommandAzurload;
 import org.china2b2t.azurmgr.command.CommandGenkey;
-import org.china2b2t.azurmgr.command.CommandPluginmgr;
 import org.china2b2t.azurmgr.http.Server;
 
 public class Main extends JavaPlugin {
@@ -57,7 +56,6 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getServer().getPluginCommand("pluginmgr").setExecutor(new CommandPluginmgr());
         getServer().getPluginCommand("genkey").setExecutor(new CommandGenkey());
         getServer().getPluginCommand("azurload").setExecutor(new CommandAzurload());
         // getServer().getMessenger().registerOutgoingPluginChannel(this, "QueueMgr");
@@ -73,11 +71,6 @@ public class Main extends JavaPlugin {
             saveDefaultConfig();
         }
 
-        File queueConfig = new File(this.getDataFolder(), "prior.yml");
-        if (!queueConfig.exists()) {
-            saveDefaultConfig(this, "prior.yml");
-        }
-
         File accessConfig = new File(this.getDataFolder(), "access.yml");
         if (!accessConfig.exists()) {
             saveDefaultConfig(this, "access.yml");
@@ -90,11 +83,15 @@ public class Main extends JavaPlugin {
         }
 
         roConfig = this.getConfig();
-        priorConfig = load(this, "prior.yml");
         accConfig = load(this, "access.yml");
 
         // SuperHuang233 rejected
         // new Timed();
+    }
+
+    @Override
+    public void onDisable() {
+        Server.stopServer(0);
     }
 
     public JavaPlugin getInstance() {
@@ -107,17 +104,14 @@ public class Main extends JavaPlugin {
     public static void reload() {
         instance.reloadConfig();
         accConfig = load(Main.instance, "access.yml");
-        priorConfig = load(Main.instance, "prior.yml");
     }
 
     /**
      * Save configurations
      */
     public static void save() {
-        File prior = new File(instance.getDataFolder(), "prior.yml");
         File access = new File(instance.getDataFolder(), "access.yml");
         try {
-            priorConfig.save(prior);
             accConfig.save(access);
         } catch (IOException e) {
             instance.getLogger().log(Level.SEVERE, "Could not save configurations");
