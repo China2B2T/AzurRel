@@ -85,7 +85,7 @@ public class WhitelistHandler implements HttpHandler {
                     for (Iterator<Object> it = json.getJSONArray("add").iterator(); it.hasNext(); ) {
                         Object player = it.next();
                         if (player instanceof String) {
-                            ((String)player).replace("\n", "");
+                            ((String)player).replaceAll("(\r\n|\r|\n|\n\r)", "");
                             BukkitScheduler scheduler = Bukkit.getScheduler();
                             scheduler.scheduleSyncDelayedTask(Main.instance, () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "whitelist add " + player), 0L);
                         }
