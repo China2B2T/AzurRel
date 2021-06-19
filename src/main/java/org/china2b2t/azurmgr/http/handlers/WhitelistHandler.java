@@ -33,14 +33,12 @@ public class WhitelistHandler implements HttpHandler {
         headers.set("Content-Type", "application/json; charset=utf8");
         headers.set("Server", "rio/0.1");
 
-        // 拒绝GET请求
         if (httpExchange.getRequestMethod().equals("GET")) {
             httpExchange.sendResponseHeaders(403, "{\"err\":\"shouldn't use GET\"}".length());
             os.write("{\"err\":\"shouldn't use GET\"}".getBytes());
             os.close();
             return;
         }
-        // 拒绝除了POST以外的请求
         if (!httpExchange.getRequestMethod().equals("POST")) {
             httpExchange.sendResponseHeaders(403, "{\"err\":\"unknown operation\"}".length());
             os.write("{\"err\":\"unknown operation\"}".getBytes());

@@ -12,5 +12,7 @@ public class PriorHandler extends Handler {
         if (json.has("add")) {
             //
         }
+
+        return null;
     }
 }
